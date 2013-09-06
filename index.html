@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>EVR.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="docs/lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="docs/lib/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="docs/lib/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <link href="docs/css/social_foundicons.css" rel="stylesheet">
+    <link href="docs/css/entypo.css" rel="stylesheet">
+    <link href="css/evr.css" rel="stylesheet">
+    <link href="docs/css/docs.css" rel="stylesheet">
+
+    <!--[if lt IE 8]>
+      <link rel="stylesheet" href="css/social_foundicons_ie7.css">
+    <![endif]-->
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="docs/favicon.ico">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#about">EVR.js</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="#usage">Docs</a></li>
+              <li><a href="#api">API</a></li>
+              <li><a href="#examples">Examples</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">EVR.js</li>
+              <li id="nav-home"><a href="http://impressiver.github.com/evr.js">Project Home</a></li>
+              <li id="nav-github"><a href="https://github.com/impressiver/evr.js">Source (Github)</a></li>
+              <li id="nav-documentation" class="nav-header">Documentation</li>
+              <li id="nav-about"><a href="#about">About</a></li>
+              <li id="nav-usage"><a href="#usage">Getting Started</a></li>
+              <li id="nav-api"><a href="#api">API Reference</a></li>
+              <li id="nav-examples" class="nav-header">Examples</li>
+            </ul>
+          </div><!--/.well -->
+
+          <div class="sidebar-nav">
+            <a name="get-evr"></a>
+            <ul class="btn-group big">
+              <li class="btn" id="btn-github"><i class="foundicon-github"></i>View on <span class="title">Github</span></li>
+              <li class="btn" id="btn-tarball"><i class="entypo-arrow-down"></i>Download <span class="title">TAR Ball</span></li>
+            </ul>
+          </div>
+        </div><!--/span-->
+        <div class="span9">
+          <div class="hero-unit">
+            <a name="about"></a>
+            <h1>EVR.js</h1>
+            <h2>JavaScript Event Visualization Recorder</h2>
+            <p class="plug">By Impressiver</p>
+            <p class="lead">EVR.js is awesome.</p>
+          </div>
+
+          <div id="usage-container" class="row-fluid section">
+              <a name="usage"></a>
+              <h2>Getting Started</h2>
+              <p>
+                <ol class="howto">
+                  <li>Download EVR.js (<a href="https://github.com/impressiver/evr.js/tarball/master">TAR</a> or <a href="">Github</a>) and put the files somewhere within your project resource path.</li>
+                  <li>
+                    Include the CSS tag somewhere in the <code>HEAD</code> of the html:
+<pre class="prettyprint linenums">
+&lt;head&gt;
+  ...
+  &lt;link href="/path/to/css/evr.css" rel="stylesheet"&gt;
+  ...
+&lt;/head&gt;
+</pre>
+                  </li>
+                  <li>
+                    Include the JS for jQuery and EVR at the <em>end</em> of the <code>BODY</code>:
+<pre class="prettyprint linenums">
+&lt;body&gt;
+  ...
+  &lt;script src="/path/to/js/jquery.js"&gt;&lt;/script&gt;
+  &lt;script src="/path/to/js/jquery.evr.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+</pre>
+                    <span class="label label-info">Heads up!</span> The same jquery.evr.js file will also work with browser-based <a href="http://requirejs.org/docs/whyamd.html" target="_blank">AMD</a> script loaders, like RequireJS.
+                  </li>
+                  <li>
+                    Instantiate EVR:
+<pre class="prettyprint linenums">
+$(function() {
+  // Load EVR!
+  $(window).evr('start');
+});
+</pre>
+                  <span class="label label-info">Heads up!</span> Make sure to place this code somewhere <em>after</em> the script tags you added in step 3.
+                  </li>
+                  <li>
+                    And when you're done, make it stop:
+<pre class="prettyprint linenums">
+$(window).evr('stop');
+</pre>
+                  </li>
+                </ol>
+              </p>
+          </div><!--/row-->
+          <hr/>
+          <div id="options-container" class="row-fluid section">
+            <a name="options"></a>
+            <h2>Options</h2>
+            <p>The default settings are good enough to get you started, but there are plenty of settings to explore. Keep scrolling to find the <a href="#api">full list of options</a>.</p>
+            <h3>Setting global options:</h3>
+            <p>These overrides will apply to all instances of EVR.</p>
+            <ol>
+              <li>
+                During initialization:
+<pre class="prettyprint linenums">
+// Options to override
+var options = {
+  ...
+}
+
+// Initialize the plugin, the options will be merged with the defaults and apply to any guide loaded
+$(window).evr('start', options);
+</pre>
+              </li>
+              <li>
+                After initialization:
+<pre class="prettyprint linenums">
+// These options will be merged with the existing options for an instance of EVR
+$(window).evr('options', {
+  ...
+});
+</pre>
+              </li>
+            </ol>
+          </div><!--/row-->
+          <hr/>
+          <div id="api-container" class="row-fluid section">
+            <a name="api"></a>
+            <h2>API Reference</h2>
+            <p>All about the API.</p>
+            <h3>Options</h3>
+            <p>
+              <h4>Default Settings:</h4>
+<pre class="prettyprint linenums">
+options: {
+  ...
+}
+</pre>
+            </p>
+            <p>
+              <h4>Configurable Options:</h4>
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Default</th>
+                    <th>Possible Values</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th colspan="4">EVR (options.*)</th></tr>
+                  <tr>
+                    <td>option</td>
+                    <td>default</td>
+                    <td>possibilities</td>
+                    <td>Description.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </p>
+
+            <h3>Functions</h3>
+            <p>Controlling EVR as a jQuery plugin:
+<pre class="prettyprint linenums">
+$(window).evr('start', options).evr('record');
+</pre>
+            </p>
+            <p>
+              <ul class="jsdocs api-functions">
+                <li>
+                  <h4 class="name">$.fn.evr(fn, [options])</h4>
+                  <p class="description">Create an instance of EVR and attach it to `elem`.</p>
+                  <p class="argument">@param  {String} fn Instance method to invoke.</p>
+                  <p class="argument">@param  {Object} [options] Options passed as an argument to `fn`.</p>
+                  <p class="return">@return {jQuery} jQuery selector</p>
+                </li>
+              </ul>
+            </p>
+          </div><!--/row-->
+          <hr/>
+          <div id="examples-container" class="row-fluid section">
+            <a name="examples"></a>
+            <h2>Examples</h2>
+            <div class="example">
+              <a name="example-events"></a>
+              <h3>Simple</h3>
+              <p>The quickest way to start visualizing events.</p>
+<pre class="prettyprint linenums example example-simple">
+loading...
+</pre>
+<script class="example example-events" language="javascript">
+var x = 'awes';
+</script>
+              <p><a class="btn btn-primary example example-events" data-example="simple">Try it</a></p>
+            </div><!--/example-->
+
+          </div><!--/row-->
+
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Ian White 2012</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+      <!-- GitHub ribbon -->
+      <a href="https://github.com/impressiver/evr.js"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    </div><!--/.wrapper-->
+
+    <!-- JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the page loads faster -->
+    <script src="docs/lib/jquery/jquery-1.8.3.min.js"></script>
+    <script src="docs/lib/google-code-prettify/prettify.js"></script>
+    <script src="docs/js/helpers.js"></script>
+
+    <script src="js/jquery.evr.js"></script>
+    <script language="javascript">
+      // Load an example
+      function loadExample(e) {
+        e.preventDefault();
+
+        console.log("Loading example", $(e.currentTarget));
+      }
+
+      // Execute on DOM ready
+      $(function() {
+        // Fill the example <pre> blocks
+        $('script.example').each(showExampleSource);
+
+        // Make the <pre> blocks look nice
+        prettyPrint();
+
+        // Wire up the example buttons
+        $('a.example').on('click', loadExample);
+
+        // Initialize jQuery.EVR to listen for events anywhere inside 'window'
+        //$(window).evr('start');
+      });
+    </script>
+  </body>
+</html>
